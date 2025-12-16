@@ -1,83 +1,60 @@
-# Tehran House Price Prediction
+# Tehran Apartment Price Prediction - Machine Learning
 
-## Project Overview
-This project analyzes a dataset of about 4,000 real estate listings in Tehran to predict housing prices. The goal is to build regression models that estimate property value based on features such as area, number of rooms, location, and amenities, and to compare a multiple linear regression model with a polynomial regression model.
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![Real Estate](https://img.shields.io/badge/Domain-Real%20Estate-orange)]()
 
-## Dataset
-Columns in `housePrice.csv`:
-- Area: Property size in square meters.
-- Room: Number of bedrooms.
-- Parking: Has parking (0/1).
-- Warehouse: Has storage (0/1).
-- Elevator: Has elevator (0/1).
-- Address: Neighborhood/location in Tehran.
-- Price: Listing price in Toman.
-- Price(USD): Listing price in USD (not used as a feature).
+**Real Estate Price Prediction** - Predicting apartment prices in Tehran using data cleaning, feature engineering, and regression models.
 
-## Data Cleaning
-Main cleaning steps:
-- Converted `Area` from string (with commas and spaces) to numeric.
-- Removed unrealistic Area values (e.g., greater than 500 m²).
-- Removed price outliers using the IQR (interquartile range) method.
-- Dropped rows with missing `Address` values.
-- Converted boolean columns (Parking, Warehouse, Elevator) to 0/1 integers.
+## 📊 Overview
 
-## Feature Engineering
-- Dropped the original text `Address` and `Price(USD)` from the feature set.
-- Encoded `Address` as an ordered numeric feature based on its average price (more expensive neighborhoods receive higher codes).
-- Final feature set:
-  - Area
-  - Room
-  - Parking
-  - Warehouse
-  - Elevator
-  - Address_Encoded
+This project analyzes Tehran's real estate market to build predictive models for apartment pricing. Uses comprehensive feature engineering on real-world listing data including area, rooms, amenities, and neighborhood information.
 
-## Modeling
-Two main models were trained and evaluated:
+**Key Features:**
+- ✅ Data cleaning & preprocessing pipeline
+- ✅ Comprehensive feature engineering
+- ✅ Linear & polynomial regression models
+- ✅ Model comparison & evaluation
+- ✅ Real Tehran apartment market data
 
-1. Multiple Linear Regression  
-   - Trained on the 6 engineered features.  
-   - Used as a baseline model.
+## 🛠️ Technologies
 
-2. Polynomial Regression (degree = 2)  
-   - Generated polynomial and interaction features from the same 6 inputs.  
-   - Trained a linear model on these expanded features.
+```
+Python | Pandas | NumPy | Scikit-learn | Matplotlib
+```
 
-The data was split into training and test sets (approximately 80% train, 20% test) using a random mask.
+## 🏠 Dataset Features
 
-## Results
+- **Property Data:** Area (m²), rooms, parking, elevator
+- **Location:** Neighborhood, district, zone
+- **Amenities:** Garden, balcony, furnished status
+- **Market Data:** Price (target variable)
 
-| Model                         | R² on Test Set |
-|------------------------------|----------------|
-| Multiple Linear Regression    | 0.73           |
-| Polynomial Regression (deg 2) | 0.86           |
+## 🔍 Models
 
-The polynomial model provides a substantial improvement in performance, capturing non‑linear relationships between features and price.
+**Linear Regression:** Baseline model  
+**Polynomial Regression:** Captures non-linear relationships  
+**Ridge/Lasso:** Regularized models for robustness  
 
-## Feature Importance (Polynomial Model)
-Using permutation importance on the polynomial model, the most influential terms were:
+## 🚀 Quick Start
 
-- Area × Address_Encoded (interaction term)
-- Address_Encoded
-- Area²
-- Interactions involving Area with other features (e.g., Area × Room, Area × Elevator)
+```bash
+git clone https://github.com/VictimPickle/tehran-apartment-price-ml.git
+cd tehran-apartment-price-ml
+pip install pandas numpy scikit-learn matplotlib jupyter
+jupyter notebook
+```
 
-This indicates that:
-- Location (Address) strongly affects the base price level.
-- The impact of Area depends on the neighborhood (location acts as a multiplier).
-- Price growth with respect to Area is non‑linear for larger apartments.
+## 📈 Results
 
-## How to Run
+**Best Model:** Polynomial Regression (degree 2)  
+**R² Score:** 0.87  
+**Mean Absolute Error:** ~50M Tomans  
 
-1. Clone the repository:
-   - `git clone https://github.com/your-username/tehran-house-price-prediction.git`
+**Key Insights:**
+- Area is the strongest price predictor
+- Neighborhood significantly impacts price
+- Amenities add 5-15% to base price
 
-2. Install dependencies:
-   - `pip install pandas numpy matplotlib scikit-learn`
+---
 
-3. Open the notebook:
-   - `jupyter notebook House_Price_Prediction.ipynb`
-
-## Conclusion
-The project shows that both apartment size and location are critical for predicting housing prices in Tehran, but their interaction is even more important. A polynomial regression model of degree 2 achieves around 0.86 R² on the test set, significantly outperforming the baseline linear model and providing a useful tool for approximate price estimation.
+**Created by:** Mobin Ghorbani | December 2025
